@@ -209,6 +209,10 @@ extension InitializingServer {
 		switch event {
 		case let .request(_, request):
 			handleRequest(request)
+		case let .notification(notification):
+			handleNotification(notification)
+		case let .error(error):
+			handleError(error)
 		default:
 			break
 		}
@@ -238,5 +242,32 @@ extension InitializingServer {
 			self.state = .initialized(InitializationResponse(capabilities: newCaps, serverInfo: initResp.serverInfo))
 			capabilitiesContinuation.yield(newCaps)
 		}
+	}
+	
+	private func handleNotification(_ notification: ServerNotification) {
+		switch notification {
+		case .windowLogMessage(let params):
+			break
+		case .windowShowMessage(let params):
+			break
+		case .textDocumentPublishDiagnostics(let params):
+			break
+		case .telemetryEvent(let any):
+			break
+		case .protocolLogTrace(let params):
+			break
+		case .protocolProgress(let params):
+			break
+		case .protocolCancelRequest(let params):
+			break
+			
+		default:
+			print(notification)
+		}
+		
+	}
+	
+	private func handleError(_ error: Error) {
+		print(error)
 	}
 }
